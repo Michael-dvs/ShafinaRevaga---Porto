@@ -130,7 +130,7 @@ export default function App() {
             >
                 <div className="rounded-full md:rounded-[2rem] bg-white/50 overflow-hidden relative shadow-2xl shadow-apricot/20 max-w-sm mx-auto w-64 md:w-full aspect-square md:aspect-[3/4]">
                 <img 
-                  src="img\Profile.png"
+                  src="https://github.com/Michael-dvs/ShafinaRevaga---Porto/blob/main/img/Profile.png?raw=true"
                   alt="Shafina Revaga" 
                   className="w-full h-full object-cover object-top"
                   referrerPolicy="no-referrer"
