@@ -1,6 +1,28 @@
 import { useState } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'motion/react';
-import { Mail, MapPin, Phone, Briefcase, GraduationCap, Award, CheckCircle2, ChevronRight, Menu, X } from 'lucide-react';
+import { Mail, MapPin, Phone, Briefcase, GraduationCap, Award, CheckCircle2, ChevronRight, Menu, X, Linkedin } from 'lucide-react';
+
+function ImageWithSkeleton({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full bg-gray-100">
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-200 animate-pulse z-10">
+          <div className="w-8 h-8 border-2 border-apricot/30 border-t-apricot rounded-full animate-spin" />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setIsLoaded(true)}
+        className={`${className} transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        referrerPolicy="no-referrer"
+      />
+    </div>
+  );
+}
 
 export default function App() {
   const navItems = ['Home', 'About', 'Experience', 'Skills', 'Contact'];
@@ -129,27 +151,12 @@ export default function App() {
               className="relative mb-8 md:mb-0 order-1 md:order-2"
             >
                 <div className="rounded-full md:rounded-[2rem] bg-white/50 overflow-hidden relative shadow-2xl shadow-apricot/20 max-w-sm mx-auto w-64 md:w-full aspect-square md:aspect-[3/4]">
-                <img 
-                  src="https://github.com/Michael-dvs/ShafinaRevaga---Porto/blob/main/img/Profile.png?raw=true"
-                  alt="Shafina Revaga" 
-                  className="w-full h-full object-cover object-top"
-                  referrerPolicy="no-referrer"
-                />
+                  <ImageWithSkeleton 
+                    src="https://github.com/Michael-dvs/ShafinaRevaga---Porto/blob/main/img/Profile.png?raw=true"
+                    alt="Shafina Revaga" 
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
-              {/* Floating Badge */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="hidden md:flex absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-xl shadow-ink/5 items-center gap-4 border border-white/50"
-              >
-                <div className="w-12 h-12 rounded-full bg-apricot/20 flex items-center justify-center text-ink">
-                  <Briefcase size={24} />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold">1+ Years</p>
-                  <p className="text-sm text-ink-light">Work Experience</p>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -189,9 +196,10 @@ export default function App() {
                   </div>
                   <h4 className="font-semibold text-lg">SMK Negeri 10 Jakarta</h4>
                   <p className="text-ink-light mb-2">Institutional Accounting and Finance (2020 - 2023)</p>
-                  <div className="inline-block px-3 py-1 bg-white rounded-full text-sm font-medium text-ink">
-                    Average Grade: 85.9
-                  </div>
+
+                  <h4 className="font-semibold text-lg">Trisakti University</h4>
+                  <p className="text-ink-light mb-2">Associate Degree in Taxation (2025 - Present)</p>
+                  <p className="text-sm text-ink-light">Focused on mastering tax administration, preparing tax returns, and ensuring fiscal compliance in accordance with current regulations.</p>
                 </motion.div>
 
                 <motion.div 
@@ -229,6 +237,7 @@ export default function App() {
             </motion.div>
 
             <div className="space-y-12">
+
               {/* Experience 1 */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -238,7 +247,7 @@ export default function App() {
               >
                 <div className="md:grid md:grid-cols-5 gap-8 items-start">
                   <div className="md:col-span-1 md:text-right mb-4 md:mb-0 pt-1">
-                    <span className="text-sm font-bold text-ink-light uppercase tracking-wider">Jan 2024 - Present</span>
+                    <span className="text-sm font-bold text-ink-light uppercase tracking-wider">Jan 2024 - June 2025</span>
                   </div>
                   <div className="md:col-span-4 relative">
                     <div className="absolute -left-8 md:-left-6 top-1.5 w-4 h-4 rounded-full bg-apricot border-4 border-cream z-10" />
@@ -315,7 +324,7 @@ export default function App() {
               >
                 <h3 className="text-2xl font-bold mb-8 text-center">Technical Skills</h3>
                 <div className="flex flex-wrap justify-center gap-4">
-                  {['Ms. Office', 'DJP Online', 'E-Faktur', 'Data Analysis', 'Financial Administration'].map((skill, index) => (
+                  {['Ms. Office', 'DJP Online', 'E-Faktur', 'Data Analysis', 'Financial Administration', 'Coretax'].map((skill, index) => (
                     <motion.div 
                       key={skill} 
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -370,30 +379,36 @@ export default function App() {
                 Interested in discussing collaboration opportunities? Feel free to contact me via the details below.
               </p>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                <a href="mailto:sfrevaga.13@gmail.com" className="flex flex-col items-center p-8 bg-white rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all">
-                  <div className="w-14 h-14 rounded-full bg-light-pink flex items-center justify-center mb-4">
-                    <Mail size={24} className="text-ink" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
+                <a href="mailto:sfrevaga.13@gmail.com" className="flex flex-row md:flex-col items-center p-4 md:p-8 bg-white rounded-2xl md:rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all gap-4 md:gap-0">
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-light-pink flex items-center justify-center md:mb-4 shrink-0">
+                    <Mail className="text-ink w-5 h-5 md:w-6 md:h-6" />
                   </div>
-                  <h3 className="font-bold mb-2">Email</h3>
-                  <p className="text-ink-light text-sm">sfrevaga.13@gmail.com</p>
+                  <div className="text-left md:text-center">
+                    <h3 className="font-bold text-base md:text-lg md:mb-2">Email</h3>
+                    <p className="text-ink-light text-xs md:text-sm">sfrevaga.13@gmail.com</p>
+                  </div>
                 </a>
 
-                <div className="flex flex-col items-center p-8 bg-white rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all">
-                  <div className="w-14 h-14 rounded-full bg-peach flex items-center justify-center mb-4">
-                    <Phone size={24} className="text-ink" />
+                <a href="https://wa.me/6285710769930" target="_blank" rel="noopener noreferrer" className="flex flex-row md:flex-col items-center p-4 md:p-8 bg-white rounded-2xl md:rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all gap-4 md:gap-0">
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-peach flex items-center justify-center md:mb-4 shrink-0">
+                    <Phone className="text-ink w-5 h-5 md:w-6 md:h-6" />
                   </div>
-                  <h3 className="font-bold mb-2">Phone</h3>
-                  <p className="text-ink-light text-sm">0857-1076-9930</p>
-                </div>
+                  <div className="text-left md:text-center">
+                    <h3 className="font-bold text-base md:text-lg md:mb-2">Telepon / WA</h3>
+                    <p className="text-ink-light text-xs md:text-sm">0857-1076-9930</p>
+                  </div>
+                </a>
 
-                <div className="flex flex-col items-center p-8 bg-white rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all">
-                  <div className="w-14 h-14 rounded-full bg-apricot/40 flex items-center justify-center mb-4">
-                    <MapPin size={24} className="text-ink" />
+                <a href="https://www.linkedin.com/in/shafinarvg" target="_blank" rel="noopener noreferrer" className="flex flex-row md:flex-col items-center p-4 md:p-8 bg-white rounded-2xl md:rounded-3xl shadow-sm border border-apricot/10 hover:shadow-md hover:-translate-y-1 transition-all gap-4 md:gap-0">
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-apricot/40 flex items-center justify-center md:mb-4 shrink-0">
+                    <Linkedin className="text-ink w-5 h-5 md:w-6 md:h-6" />
                   </div>
-                  <h3 className="font-bold mb-2">Location</h3>
-                  <p className="text-ink-light text-sm">Jl. Cipinang Tengah No. 22</p>
-                </div>
+                  <div className="text-left md:text-center">
+                    <h3 className="font-bold text-base md:text-lg md:mb-2">LinkedIn</h3>
+                    <p className="text-ink-light text-xs md:text-sm">Shafina Revaga</p>
+                  </div>
+                </a>
               </div>
             </motion.div>
           </div>
